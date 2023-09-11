@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'widgets/word_card.dart';
+import 'controller/word_controller.dart';
+import 'dict/dict.dart';
+
 void main() {
   runApp(GetMaterialApp(home: MyApp()));
 }
@@ -92,122 +96,5 @@ class Home extends StatelessWidget {
         },
       ),
     )));
-  }
-}
-
-class Word {
-  num id;
-  String word;
-  String dictId;
-  String dictName;
-  String? pronounceUk;
-  String? pronounceUs;
-  List<String>? sentenceList;
-
-  Word({
-    required this.id,
-    required this.word,
-    required this.dictId,
-    required this.dictName,
-    this.pronounceUk,
-    this.pronounceUs,
-    this.sentenceList,
-  });
-}
-
-class WordCardController extends GetxController {
-  RxList<Word> list = (<Word>[
-    Word(
-        id: 0,
-        word: "man",
-        dictId: "uk",
-        dictName: "柯林斯词典",
-        pronounceUk: "[man]",
-        sentenceList: ["I am a man", "I am not a man"]),
-    Word(
-        id: 1,
-        word: "woman",
-        dictId: "uk",
-        dictName: "柯林斯词典",
-        pronounceUk: "[woman]"),
-    Word(
-        id: 2,
-        word: "shit",
-        dictId: "uk",
-        dictName: "柯林斯词典",
-        pronounceUk: "[shit]"),
-    Word(
-        id: 3,
-        word: "noodle",
-        dictId: "uk",
-        dictName: "柯林斯词典",
-        pronounceUk: "[noodle]",
-        sentenceList: [
-          "I don't like noodles at all",
-          "I like noodles very much",
-        ]),
-  ]).obs;
-
-  RxInt index = 0.obs;
-
-  Word get current => list[index.value];
-
-  next() {
-    if (index.value < list.length - 1) {
-      index.value++;
-      update();
-    }
-  }
-
-  prev() {
-    if (index.value > 0) {
-      index.value--;
-      update();
-    }
-  }
-}
-
-class WordCard extends StatelessWidget {
-  final Word word;
-
-  const WordCard({super.key, required this.word});
-
-  @override
-  Widget build(BuildContext context) {
-    var sentenceIndex = 0;
-    return Center(
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.blueAccent, borderRadius: BorderRadius.circular(5.w)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              word.word,
-              style: TextStyle(
-                  fontSize: 30.sp,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Chromate'),
-            ),
-            Text(
-              word.dictName,
-            ),
-            if (word.pronounceUs != null)
-              Text(
-                "美音：${word.pronounceUs!}",
-              ),
-            if (word.pronounceUk != null)
-              Text(
-                "英音：${word.pronounceUk!}",
-              ),
-            ...(word.sentenceList?.map((e) {
-                  sentenceIndex++;
-                  return Text("例$sentenceIndex: $e");
-                }).toList() ??
-                [])
-          ],
-        ),
-      ),
-    );
   }
 }
