@@ -36,9 +36,9 @@ class WordCard extends StatelessWidget {
               Text(
                 "英音：${word.pronounceUk!}",
               ),
-            ...(word.sentenceList?.map((e) {
+            ...(word.captions?.map((WordCaption e) {
                   sentenceIndex++;
-                  return Text("例$sentenceIndex: $e");
+                  return Text("例$sentenceIndex: ${e.sentence}");
                 }).toList() ??
                 [])
           ],
