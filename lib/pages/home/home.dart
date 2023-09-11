@@ -17,50 +17,51 @@ class Home extends StatelessWidget {
   Widget build(context) {
     final wordController = Get.put(WordCardController());
     return Scaffold(
-        // 用一个简单的Get.to()即可代替Navigator.push那8行，无需上下文！
-        body: Center(
-            child: Container(
-      width: 300.w,
-      height: 300.w,
-      child: LayoutBuilder(
-        builder: (ctx, constrains) {
-          return SingleChildScrollView(
-            controller: controller,
-            scrollDirection: Axis.horizontal,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                  minWidth: constrains.maxWidth,
-                  minHeight: constrains.maxHeight),
-              child: Row(
-                  children: wordController.list.map((e) {
-                return Column(
-                  children: [
-                    ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minWidth: constrains.maxWidth,
-                          minHeight: constrains.maxHeight * 0.6,
-                        ),
-                        child: WordCard(
-                          word: e,
-                        )),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () => wordController.prev(),
-                            child: Text("前一个")),
-                        ElevatedButton(
-                            onPressed: () => wordController.next(),
-                            child: Text("下一个")),
-                      ],
-                    ),
-                  ],
-                );
-              }).toList()),
-            ),
-          );
-        },
-      ),
-    )));
+      // 用一个简单的Get.to()即可代替Navigator.push那8行，无需上下文！
+      body: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Color(0xFFfbab66), Color(0xFFf7418c)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          )),
+          child: Flex(
+            direction: Axis.vertical,
+            children: [
+              if (wordController.current != null)
+                Container(
+                  height: 1.sh - 200.w,
+                  child: Obx(() => WordCard(
+                        word: wordController.current!,
+                      )),
+                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 100.w,
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.grey)),
+                        onPressed: () => wordController.prev(),
+                        child: Text("我冇知")),
+                  ),
+                  SizedBox(width: 30.w),
+                  SizedBox(
+                    width: 100.w,
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.lightGreen)),
+                        onPressed: () => wordController.next(),
+                        child: Text("我悟了")),
+                  ),
+                ],
+              ),
+            ],
+          )),
+    );
   }
 }

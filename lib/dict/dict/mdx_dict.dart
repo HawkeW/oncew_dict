@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:mdict_reader/mdict_reader.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+import '../models/word.dart';
 import './dict.dart';
 
 class MdxDict extends Dict {
@@ -23,5 +25,43 @@ class MdxDict extends Dict {
   queryWord(String word) {
     final result = _mdict.query(word);
     debugPrint(result);
+  }
+
+  @override
+  Future<List<Word>> getAll() async {
+    return [
+      Word(
+          id: 0,
+          word: "man",
+          dictId: "uk",
+          dictName: "柯林斯词典",
+          pronounceUk: "[man]",
+          captions: jsonEncode([
+            {"sentence": "I am a man"},
+            {"sentence": "I am not a man"}
+          ])),
+      Word(
+          id: 1,
+          word: "24-7",
+          dictId: "uk",
+          dictName: "柯林斯词典",
+          pronounceUk: "[woman]"),
+      Word(
+          id: 2,
+          word: "shit",
+          dictId: "uk",
+          dictName: "柯林斯词典",
+          pronounceUk: "[shit]"),
+      Word(
+          id: 3,
+          word: "noodle",
+          dictId: "uk",
+          dictName: "柯林斯词典",
+          pronounceUk: "[noodle]",
+          captions: jsonEncode([
+            {"sentence": "I don't like noodles at all"},
+            {"sentence": "I like noodles very much"},
+          ])),
+    ];
   }
 }

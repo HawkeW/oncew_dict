@@ -12,37 +12,48 @@ class WordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var sentenceIndex = 0;
     return Center(
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.blueAccent, borderRadius: BorderRadius.circular(5.w)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 60.w),
+            child: Text(
               word.word,
               style: TextStyle(
-                  fontSize: 30.sp,
+                  fontSize: 80.sp,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Chromate'),
             ),
+          ),
+          Text(
+            word.dictName,
+          ),
+          if (word.pronounceUs != null)
             Text(
-              word.dictName,
+              "美音：${word.pronounceUs!}",
+              style: TextStyle(color: Colors.black, fontSize: 18.sp),
             ),
-            if (word.pronounceUs != null)
-              Text(
-                "美音：${word.pronounceUs!}",
-              ),
-            if (word.pronounceUk != null)
-              Text(
-                "英音：${word.pronounceUk!}",
-              ),
-            ...(word.captions?.map((WordCaption e) {
+          if (word.pronounceUk != null)
+            Text(
+              "英音：${word.pronounceUk!}",
+              style: TextStyle(color: Colors.black, fontSize: 18.sp),
+            ),
+          SizedBox(
+            height: 60.w,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: word.captions?.map((WordCaption e) {
                   sentenceIndex++;
-                  return Text("例$sentenceIndex: ${e.sentence}");
+                  return Text(
+                    "例$sentenceIndex: ${e.sentence}",
+                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                  );
                 }).toList() ??
-                [])
-          ],
-        ),
+                [],
+          ),
+        ],
       ),
     );
   }

@@ -1,4 +1,6 @@
-class Dict {
+import '../models/word.dart';
+
+abstract class Dict {
   String name;
   String? type;
 
@@ -7,5 +9,7 @@ class Dict {
     this.type,
   });
 
-  queryWord(String word) {}
+  queryWord(String word);
+
+  Future<List<Word>> getAll();
 }
