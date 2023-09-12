@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../controller/word_controller.dart';
+import '../../widgets/home_drawer.dart';
 import '../../widgets/word_card.dart';
+import '../user/user.dart';
 
 class Controller extends GetxController {
   var count = 0.obs;
@@ -10,14 +12,35 @@ class Controller extends GetxController {
   increment() => count++;
 }
 
+final GlobalKey homeKey = GlobalKey();
+
 class Home extends StatelessWidget {
   final controller = ScrollController();
+
+  Home({super.key});
 
   @override
   Widget build(context) {
     final wordController = Get.put(WordCardController());
     return Scaffold(
-      // 用一个简单的Get.to()即可代替Navigator.push那8行，无需上下文！
+      key: homeKey,
+      drawer: HomeDrawer(),
+      appBar: AppBar(
+        title: Text(
+          "当前词书",
+          style: TextStyle(fontSize: 16.sp),
+        ),
+        toolbarHeight: 50,
+        leading: IconButton(
+          onPressed: () {
+            (homeKey.currentState as ScaffoldState).openDrawer();
+          },
+          icon: const Icon(
+            Icons.person,
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
