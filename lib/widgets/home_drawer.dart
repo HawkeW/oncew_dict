@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:oncew_dict/controller/user_controller.dart';
 
@@ -16,15 +17,55 @@ class HomeDrawer extends StatelessWidget {
       // Important: Remove any padding from the ListView.
       padding: EdgeInsets.zero,
       children: [
-        const DrawerHeader(
+        DrawerHeader(
           decoration: BoxDecoration(
             color: Colors.blue,
           ),
-          child: Text('我的'),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (!userController.isLogin)
+                Center(
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 40.sp,
+                  ),
+                )
+              else
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: 40.sp,
+                      ),
+                      Text(userController.user.value.nickName),
+                      Text(userController.user.value.phone),
+                    ],
+                  ),
+                )
+            ],
+          ),
         ),
         if (!userController.isLogin)
           ElevatedButton(
               onPressed: () => Get.to(() => LoginPage()), child: Text("登录"))
+        else ...[
+          ListTile(
+              title: Text(
+            "我的词书",
+            style: TextStyle(color: Colors.black),
+          )),
+          ListTile(
+              title: Text(
+            "我的生词本",
+            style: TextStyle(color: Colors.black),
+          )),
+        ]
       ],
     ));
   }

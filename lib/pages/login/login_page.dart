@@ -19,9 +19,11 @@ class LoginPage extends StatelessWidget {
       var user = await loginController.login();
       if (user != null) {
         await userController.setUser(user);
-        EasyLoading.showToast("登录成功！");
+        EasyLoading.show(
+          status: "登录成功！",
+        );
       } else {
-        EasyLoading.showToast("登录失败！");
+        EasyLoading.show(status: "登录失败！");
       }
       print('phone: ${loginController.phone.value}');
       print('Password: ${loginController.password.value}');

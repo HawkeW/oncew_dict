@@ -27,7 +27,7 @@ class User implements MappableData {
       'phone': phone,
       'email': email,
       'password': password,
-      'createdAt': createdAt.toString(),
+      'created_at': createdAt.toString(),
     };
   }
 
