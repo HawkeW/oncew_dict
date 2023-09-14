@@ -3,6 +3,7 @@ import 'dart:convert';
 import '../models/word.dart';
 import 'dict.dart';
 
+/// 服务接口词典
 class ServiceDict extends Dict {
   ServiceDict({required super.name});
 

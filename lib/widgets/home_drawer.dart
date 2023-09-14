@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:oncew_dict/controller/user_controller.dart';
+import 'package:oncew_dict/pages/word_book/word_book.dart';
 
 import '../pages/login/login_page.dart';
 
@@ -56,9 +57,12 @@ class HomeDrawer extends StatelessWidget {
               onPressed: () => Get.to(() => LoginPage()), child: Text("登录"))
         else ...[
           ListTile(
-              title: Text(
-            "我的词书",
-            style: TextStyle(color: Colors.black),
+              title: ElevatedButton(
+            child: Text(
+              "我的词书",
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: () => Get.to(() => WordBookPage()),
           )),
           ListTile(
               title: Text(
