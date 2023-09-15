@@ -15,24 +15,36 @@ class WordBookPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("我的词书"),
+        title: const Text("我的词书"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.to(() => CreateWordBookPage()),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
       body: GetX<WordBookController>(
           init: WordBookController(userController.user.value),
           builder: (controller) {
+            if (controller.loading.value) {
+              return const Center(
+                child: Text("加载中..."),
+              );
+            }
             if (controller.workBookList.isEmpty) {
               return Center(
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("暂无数据"),
+                  const Text("暂无数据"),
                   SizedBox(
                     height: 20.w,
                   ),
                   ElevatedButton(
                       onPressed: () => Get.to(() => CreateWordBookPage()),
-                      child: Text("添加词书")),
+                      child: const Text("添加词书")),
                 ],
               ));
             }
@@ -43,6 +55,8 @@ class WordBookPage extends StatelessWidget {
                         trailing:
                             Text(DateTime.parse(item.createdAt).toString()),
                       ))
+                  .toList()
+                  .reversed
                   .toList(),
             );
           }),

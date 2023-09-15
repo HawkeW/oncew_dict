@@ -15,13 +15,7 @@ class WordService {
   }
 
   // 获取用户词书列表
-  static Future<ResultData> createWordBook(
-      int userId, String name, String description) {
-    return _get("/word_book/create", params: {
-      "type": 1,
-      "name": name,
-      "description": description,
-      "user_id": userId
-    });
+  static Future<ResultData> createWordBook(Map<String, dynamic> data) {
+    return _get("/word_book/create", params: data);
   }
 }

@@ -7,14 +7,19 @@ import '../../service/api/word.dart';
 class WordBookController extends GetxController {
   RxList<WordBook> workBookList = (<WordBook>[]).obs;
 
+  RxBool loading = false.obs;
+
   User user;
 
   WordBookController(User this.user);
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    getWorkBookList();
+    loading.value = true;
+    await getWorkBookList();
+
+    Future.delayed(Duration(seconds: 1), () => loading.value = false);
   }
 
   setUser(User user) {

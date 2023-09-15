@@ -63,12 +63,7 @@ class HomeDrawer extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () => Get.to(() => WordBookPage()),
-          )),
-          ListTile(
-              title: Text(
-            "我的生词本",
-            style: TextStyle(color: Colors.black),
-          )),
+          ))
         ]
       ],
     ));

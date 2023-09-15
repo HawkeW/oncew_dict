@@ -1,3 +1,4 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:oncew_dict/dict/dict/service_dict.dart';
 import '../dict/dict.dart';

@@ -42,6 +42,7 @@ class Home extends StatelessWidget {
         ),
       ),
       body: Container(
+          width: 1.sw,
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [Color(0xFFfbab66), Color(0xFFf7418c)],
