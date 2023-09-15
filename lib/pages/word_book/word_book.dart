@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:oncew_dict/controller/user_controller.dart';
 import 'package:oncew_dict/pages/word_book/word_book_controller.dart';
 
+import '../../models/word_book.dart';
 import '../create_word_book/create_word_book.dart';
 
 class WordBookPage extends StatelessWidget {
@@ -11,22 +12,73 @@ class WordBookPage extends StatelessWidget {
 
   final userController = Get.find<UserController>();
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("我的词书"),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.to(() => CreateWordBookPage()),
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
+  Widget getWordBookItem(WordBookController controller, int index) {
+    var item = controller.workBookList[index];
+    return InkWell(
+      onTap: () => controller.multiSelectChoice[index] =
+          !controller.multiSelectChoice[index],
+      onLongPress: () => controller.setMultiSelect(true),
+      child: ListTile(
+        leading: controller.isMultiSelect.value
+            ? Checkbox(
+                value: controller.multiSelectChoice[index],
+                onChanged: (bool? value) {
+                  controller.multiSelectChoice[index] = value == true;
+                },
+              )
+            : null,
+        title: Text(item.name),
+        subtitle: SizedBox(
+          child: Text(
+            item.description,
+            style: TextStyle(overflow: TextOverflow.ellipsis),
+          ),
+        ),
+        trailing: Column(
+          children: [
+            Text(item.createdAt.substring(0, 10)),
+          ],
         ),
       ),
-      body: GetX<WordBookController>(
-          init: WordBookController(userController.user.value),
-          builder: (controller) {
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.put(WordBookController(userController.user.value));
+    return Obx(() => Scaffold(
+          appBar: AppBar(
+            title: const Text("我的词书"),
+            actions: [
+              if (controller.isMultiSelect.value)
+                TextButton(
+                  onPressed: () {
+                    controller.isMultiSelect.value = false;
+                  },
+                  child: Text(
+                    "完成",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+            ],
+          ),
+          floatingActionButton: controller.isMultiSelect.value
+              ? FloatingActionButton(
+                  backgroundColor: Colors.redAccent,
+                  onPressed: () => controller.removeSelected(),
+                  child: const Icon(
+                    Icons.delete_outlined,
+                    color: Colors.white,
+                  ),
+                )
+              : FloatingActionButton(
+                  onPressed: () => Get.to(() => CreateWordBookPage()),
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                ),
+          body: GetX<WordBookController>(builder: (controller) {
             if (controller.loading.value) {
               return const Center(
                 child: Text("加载中..."),
@@ -48,18 +100,18 @@ class WordBookPage extends StatelessWidget {
                 ],
               ));
             }
-            return ListView(
-              children: controller.workBookList.value
-                  .map((item) => ListTile(
-                        title: Text(item.name),
-                        trailing:
-                            Text(DateTime.parse(item.createdAt).toString()),
-                      ))
-                  .toList()
-                  .reversed
-                  .toList(),
-            );
+            return Obx(() => ListView(
+                  children: controller.workBookList
+                      .asMap()
+                      .keys
+                      .map((index) {
+                        return getWordBookItem(controller, index);
+                      })
+                      .toList()
+                      .reversed
+                      .toList(),
+                ));
           }),
-    );
+        ));
   }
 }

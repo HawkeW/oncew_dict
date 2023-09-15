@@ -7,6 +7,37 @@ import '../../service/api/word.dart';
 class WordBookController extends GetxController {
   RxList<WordBook> workBookList = (<WordBook>[]).obs;
 
+  RxBool isMultiSelect = false.obs;
+
+  RxList<bool> multiSelectChoice = (<bool>[]).obs;
+
+  setMultiSelect(bool state) {
+    multiSelectChoice.value = workBookList.map((element) => false).toList();
+    if (state) {
+      isMultiSelect.value = state;
+    }
+  }
+
+  removeSelected() async {
+    List<int> selectedBookIds = [];
+    multiSelectChoice.asMap().keys.forEach((index) {
+      print(multiSelectChoice[index]);
+
+      if (multiSelectChoice[index]) {
+        selectedBookIds.add(workBookList[index].id);
+      }
+    });
+    var res = await WordService.batchDeleteWordBook({
+      "user_id": user.id,
+      "ids": selectedBookIds.toList(),
+    });
+    if (res.isSuccess) {
+      workBookList
+          .removeWhere((element) => selectedBookIds.contains(element.id));
+      setMultiSelect(true);
+    }
+  }
+
   RxBool loading = false.obs;
 
   User user;

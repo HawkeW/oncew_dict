@@ -18,4 +18,9 @@ class WordService {
   static Future<ResultData> createWordBook(Map<String, dynamic> data) {
     return _get("/word_book/create", params: data);
   }
+
+  // 批量删除用户词书
+  static Future<ResultData> batchDeleteWordBook(Map<String, dynamic> data) {
+    return _post("/word_book/delete/list", params: data);
+  }
 }

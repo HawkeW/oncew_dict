@@ -111,7 +111,7 @@ class HttpManager {
     Response response;
     try {
       _dio!.options.extra["showErrMsg"] = showErrMsg; // 是否显示错误弹窗
-
+      _dio!.options.headers["Content-Type"] = "application/json";
       response = await _dio!.post(api, data: params, cancelToken: cancelToken);
 
       if (withLoading) {
