@@ -5,18 +5,34 @@ import 'package:oncew_dict/controller/user_controller.dart';
 import 'package:oncew_dict/pages/word_book/word_book.dart';
 
 import '../pages/login/login_page.dart';
+import '../pages/search_word/search_word_page.dart';
 
 class HomeDrawer extends StatelessWidget {
   HomeDrawer({super.key});
 
   final userController = Get.put(UserController());
 
+  buildDrawerItem(String title, IconData icon, [Function()? onTap]) {
+    return Container(
+      margin: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.w),
+      child: ListTile(
+        onTap: onTap,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.w)),
+        tileColor: Colors.blue,
+        style: ListTileStyle.drawer,
+        leading: Icon(
+          icon,
+          color: Colors.white,
+        ),
+        title: Text(title),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
         child: ListView(
-      // Important: Remove any padding from the ListView.
-      padding: EdgeInsets.zero,
       children: [
         DrawerHeader(
           decoration: BoxDecoration(
@@ -56,14 +72,16 @@ class HomeDrawer extends StatelessWidget {
           ElevatedButton(
               onPressed: () => Get.to(() => LoginPage()), child: Text("登录"))
         else ...[
-          ListTile(
-              title: ElevatedButton(
-            child: Text(
-              "我的词书",
-              style: TextStyle(color: Colors.white),
-            ),
-            onPressed: () => Get.to(() => WordBookPage()),
-          ))
+          buildDrawerItem(
+            "我的词书",
+            Icons.book,
+            () => Get.to(() => WordBookPage()),
+          ),
+          buildDrawerItem(
+            "搜索单词",
+            Icons.search,
+            () => Get.to(() => SearchWordPage()),
+          ),
         ]
       ],
     ));
