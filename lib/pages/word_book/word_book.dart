@@ -6,6 +6,8 @@ import 'package:oncew_dict/pages/word_book/word_book_controller.dart';
 
 import '../../models/word_book.dart';
 import '../create_word_book/create_word_book.dart';
+import '../work_book_detail/work_book_detail.dart';
+import '../work_book_detail/work_book_detail_controller.dart';
 
 class WordBookPage extends StatelessWidget {
   WordBookPage({super.key});
@@ -15,8 +17,17 @@ class WordBookPage extends StatelessWidget {
   Widget getWordBookItem(WordBookController controller, int index) {
     var item = controller.workBookList[index];
     return InkWell(
-      onTap: () => controller.multiSelectChoice[index] =
-          !controller.multiSelectChoice[index],
+      onTap: () {
+        if (controller.isMultiSelect.value) {
+          controller.multiSelectChoice[index] =
+              !controller.multiSelectChoice[index];
+        } else {
+          Get.to(() => WorkBookDetail(
+                wordBook: item,
+                userId: userController.user.value.id,
+              ));
+        }
+      },
       onLongPress: () => controller.setMultiSelect(true),
       child: ListTile(
         leading: controller.isMultiSelect.value
@@ -34,11 +45,7 @@ class WordBookPage extends StatelessWidget {
             style: TextStyle(overflow: TextOverflow.ellipsis),
           ),
         ),
-        trailing: Column(
-          children: [
-            Text(item.createdAt.substring(0, 10)),
-          ],
-        ),
+        trailing: Text(item.createdAt.substring(0, 10)),
       ),
     );
   }

@@ -25,9 +25,6 @@ class WordCard extends StatelessWidget {
                   fontFamily: 'Chromate'),
             ),
           ),
-          Text(
-            word.dictName,
-          ),
           if (word.pronounceUs != null)
             Text(
               "美音：${word.pronounceUs!}",
