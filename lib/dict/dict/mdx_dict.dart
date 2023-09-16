@@ -35,8 +35,12 @@ class MdxDict extends Dict {
           word: "man",
           pronounceUk: "[man]",
           captions: jsonEncode([
-            {"sentence": "I am a man"},
-            {"sentence": "I am not a man"}
+            {
+              "sentences": [
+                {"en": "I don't like noodles at all"},
+                {"en": "I like noodles very much"},
+              ]
+            },
           ])),
       Word(id: 1, word: "24-7", pronounceUk: "[woman]"),
       Word(id: 2, word: "shit", pronounceUk: "[shit]"),
@@ -45,8 +49,12 @@ class MdxDict extends Dict {
           word: "noodle",
           pronounceUk: "[noodle]",
           captions: jsonEncode([
-            {"sentence": "I don't like noodles at all"},
-            {"sentence": "I like noodles very much"},
+            {
+              "sentences": [
+                {"en": "I don't like noodles at all"},
+                {"en": "I like noodles very much"},
+              ]
+            },
           ])),
     ];
   }

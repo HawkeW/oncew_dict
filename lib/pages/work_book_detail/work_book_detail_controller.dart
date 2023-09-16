@@ -19,13 +19,14 @@ class WorkBookDetailController extends GetxController {
   RxList<Word> wordList = (<Word>[]).obs;
 
   getWordList() async {
-    final res = await WordService.batchDeleteWordBook({
+    final res = await WordService.getWordsInWordBook({
       "word_book_id": wordBook.id,
       "user_id": userId,
     });
     if (res.isSuccess) {
-      wordList.value =
-          res.data["data"]?.map((e) => Word.fromMap(e)).toList() ?? [];
+      wordList.value = (res.data["data"] as List<dynamic>)
+          .map((e) => Word.fromMap(e))
+          .toList();
     }
   }
 }

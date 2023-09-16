@@ -42,21 +42,60 @@ class Word {
 }
 
 class WordCaption {
-  String sentence;
+  String? st;
+  String? stCn;
+  String? defCn;
+  String? defEn;
+  List<SentenceWithTranslate>? sentences;
 
   WordCaption({
-    required this.sentence,
+    this.st,
+    this.stCn,
+    this.defCn,
+    this.defEn,
+    this.sentences,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'sentence': sentence,
+      "st": st,
+      "stCn": stCn,
+      "defCn": defCn,
+      "defEn": defEn,
+      'sentence': sentences,
     };
   }
 
   factory WordCaption.fromMap(Map<String, dynamic> map) {
     return WordCaption(
-      sentence: map['sentence'] as String,
+      sentences: (map['sentence'] as List<Map<String, dynamic>>?)
+          ?.map((e) => SentenceWithTranslate.fromMap(e))
+          .toList(),
+      st: map['st'] as String?,
+      stCn: map['stCn'] as String?,
+      defCn: map['defCn'] as String?,
+      defEn: map['defEn'] as String?,
+    );
+  }
+}
+
+class SentenceWithTranslate {
+  String? en;
+  String? cn;
+
+  SentenceWithTranslate({this.en, this.cn});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'en': en,
+      'cn': cn,
+    };
+  }
+
+  factory SentenceWithTranslate.fromMap(Map<String, dynamic> map) {
+    return SentenceWithTranslate(
+      en: map['en'] as String,
+      cn: map['cn'] as String,
     );
   }
 }

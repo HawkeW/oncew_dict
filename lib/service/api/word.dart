@@ -24,8 +24,23 @@ class WordService {
     return _post("/word_book/delete/list", params: data);
   }
 
+  // 添加单词到词书
+  static Future<ResultData> addWordToWordBook(Map<String, dynamic> data) {
+    return _post("/word_book/add_words", params: data);
+  }
+
   // 获取用户词书的单词
   static Future<ResultData> getWordsInWordBook(Map<String, dynamic> data) {
     return _get("/word_book/words", params: data);
+  }
+
+  // 获取单词详情
+  static Future<ResultData> getWordDetail(Map<String, dynamic> data) {
+    return _get("/word/details", params: data);
+  }
+
+  // 搜索单词
+  static Future<ResultData> searchWords(Map<String, dynamic> data) {
+    return _get("/word/search", params: data);
   }
 }

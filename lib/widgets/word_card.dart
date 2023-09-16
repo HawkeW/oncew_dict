@@ -44,7 +44,7 @@ class WordCard extends StatelessWidget {
             children: word.captions?.map((WordCaption e) {
                   sentenceIndex++;
                   return Text(
-                    "例$sentenceIndex: ${e.sentence}",
+                    "例$sentenceIndex: ${e.sentences}",
                     style: TextStyle(color: Colors.white, fontSize: 14.sp),
                   );
                 }).toList() ??
