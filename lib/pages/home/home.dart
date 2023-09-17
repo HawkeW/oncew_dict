@@ -49,15 +49,14 @@ class Home extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           )),
-          child: Flex(
-            direction: Axis.vertical,
-            children: [
+          child: Obx(
+            () => Flex(direction: Axis.vertical, children: [
               if (wordController.current != null)
                 Container(
                   height: 1.sh - 200.w,
-                  child: Obx(() => WordCard(
-                        word: wordController.current!,
-                      )),
+                  child: WordCard(
+                    word: wordController.current!,
+                  ),
                 ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -84,7 +83,7 @@ class Home extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
+            ]),
           )),
     );
   }
