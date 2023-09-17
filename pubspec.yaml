@@ -45,6 +45,8 @@ flutter_gen:
 flutter:
   generate: true
   uses-material-design: true
+  assets:
+    - assets/animate/voice/
 
   fonts:
     - family: Chromate

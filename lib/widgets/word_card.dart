@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../dict/dict.dart';
+import '../gen/fonts.gen.dart';
 
 class WordCard extends StatelessWidget {
   final Word word;
@@ -10,7 +11,6 @@ class WordCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var sentenceIndex = 0;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -22,17 +22,17 @@ class WordCard extends StatelessWidget {
               style: TextStyle(
                   fontSize: 80.sp,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'Chromate'),
+                  fontFamily: FontFamily.chromate),
             ),
           ),
-          if (word.pronounceUs != null)
+          if (word.pronounceUs.isNotEmpty)
             Text(
-              "美音：${word.pronounceUs!}",
+              "美音：${word.pronounceUs.first.pron}",
               style: TextStyle(color: Colors.black, fontSize: 18.sp),
             ),
-          if (word.pronounceUk != null)
+          if (word.pronounceUk.isNotEmpty)
             Text(
-              "英音：${word.pronounceUk!}",
+              "英音：${word.pronounceUk.first.pron}",
               style: TextStyle(color: Colors.black, fontSize: 18.sp),
             ),
           SizedBox(
@@ -41,14 +41,16 @@ class WordCard extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: word.captions?.map((WordCaption e) {
-                  sentenceIndex++;
-                  return Text(
-                    "例$sentenceIndex: ${e.sentences}",
-                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                  );
-                }).toList() ??
-                [],
+            children: word.captions?.isNotEmpty == true
+                ? word.captions!.first.sentences?.asMap().keys.map((index) {
+                      var val = word.captions!.first.sentences![index];
+                      return Text(
+                        "例${index + 1}\n${val.en}\n${val.cn}",
+                        style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                      );
+                    }).toList() ??
+                    []
+                : [],
           ),
         ],
       ),

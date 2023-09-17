@@ -9,21 +9,35 @@
 
 import 'package:flutter/widgets.dart';
 
-class $AssetsDictsGen {
-  const $AssetsDictsGen();
+class $AssetsAnimateGen {
+  const $AssetsAnimateGen();
 
-  /// File path: assets/dicts/colins_cn_en_high_compact.mdx
-  String get colinsCnEnHighCompact =>
-      'assets/dicts/colins_cn_en_high_compact.mdx';
+  $AssetsAnimateVoiceGen get voice => const $AssetsAnimateVoiceGen();
+}
+
+class $AssetsAnimateVoiceGen {
+  const $AssetsAnimateVoiceGen();
+
+  /// File path: assets/animate/voice/voice_0.png
+  AssetGenImage get voice0 =>
+      const AssetGenImage('assets/animate/voice/voice_0.png');
+
+  /// File path: assets/animate/voice/voice_1.png
+  AssetGenImage get voice1 =>
+      const AssetGenImage('assets/animate/voice/voice_1.png');
+
+  /// File path: assets/animate/voice/voice_2.png
+  AssetGenImage get voice2 =>
+      const AssetGenImage('assets/animate/voice/voice_2.png');
 
   /// List of all assets
-  List<String> get values => [colinsCnEnHighCompact];
+  List<AssetGenImage> get values => [voice0, voice1, voice2];
 }
 
 class ResAssets {
   ResAssets._();
 
-  static const $AssetsDictsGen dicts = $AssetsDictsGen();
+  static const $AssetsAnimateGen animate = $AssetsAnimateGen();
 }
 
 class AssetGenImage {

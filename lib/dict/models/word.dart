@@ -3,20 +3,33 @@ import 'dart:convert';
 class Word {
   num id;
   String word;
-  String? pronounceUk;
-  String? pronounceUs;
+  late List<WordPron> pronounceUk;
+  late List<WordPron> pronounceUs;
   List<WordCaption>? captions;
 
   Word({
     required this.id,
     required this.word,
-    this.pronounceUk,
-    this.pronounceUs,
+    String? pronounceUk,
+    String? pronounceUs,
     String? captions,
   }) {
     if (captions != null) {
       List<dynamic> captionsData = jsonDecode(captions);
       this.captions = captionsData.map((e) => WordCaption.fromMap(e)).toList();
+    }
+    if (pronounceUs != null) {
+      List<dynamic> data = jsonDecode(pronounceUs);
+      this.pronounceUs = data.map((e) => WordPron.fromMap(e)).toList();
+    } else {
+      this.pronounceUs = [];
+    }
+
+    if (pronounceUk != null) {
+      List<dynamic> data = jsonDecode(pronounceUk);
+      this.pronounceUk = data.map((e) => WordPron.fromMap(e)).toList();
+    } else {
+      this.pronounceUk = [];
     }
   }
 
@@ -96,6 +109,30 @@ class SentenceWithTranslate {
     return SentenceWithTranslate(
       en: map['en'] as String,
       cn: map['cn'] as String,
+    );
+  }
+}
+
+class WordPron {
+  String pron;
+  String? mp3;
+
+  WordPron({
+    required this.pron,
+    required this.mp3,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'pron': pron,
+      'mp3': mp3,
+    };
+  }
+
+  factory WordPron.fromMap(Map<String, dynamic> map) {
+    return WordPron(
+      pron: map['pron'] as String,
+      mp3: map['mp3'] as String?,
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:oncew_dict/controller/user_controller.dart';
 import 'package:oncew_dict/pages/search_word/search_word_controller.dart';
+import 'package:oncew_dict/pages/word_detail/word_detail.dart';
 
 import '../../dict/models/word.dart';
 import '../../models/word_book.dart';
@@ -21,7 +22,6 @@ class SearchWordPage extends StatelessWidget {
   Timer? _debounce;
 
   final userController = Get.find<UserController>();
-  final wordBookController = Get.find<WorkBookDetailController>();
   final controller = Get.put(SearchWordController());
 
   _debouncedSearch(String? keyword) {
@@ -37,6 +37,7 @@ class SearchWordPage extends StatelessWidget {
 
   addWordToCurrentWordBook(Word word) async {
     if (wordBook != null) {
+      final wordBookController = Get.find<WorkBookDetailController>();
       await controller.addWordToBook(
           userController.user.value.id, wordBookController.wordBook, word);
       wordBookController.getWordList();
@@ -81,6 +82,8 @@ class SearchWordPage extends StatelessWidget {
                   else
                     ...controller.wordResult
                         .map((element) => Obx(() => ListTile(
+                              onTap: () =>
+                                  Get.to(WordDetailPage(word: element)),
                               title:
                                   getKeywordTitle(element, controller.keyword),
                               subtitle: element.captions?.isEmpty == true

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:oncew_dict/pages/search_word/search_word_page.dart';
 import 'package:oncew_dict/pages/word_book/word_book_controller.dart';
+import 'package:oncew_dict/pages/word_detail/word_detail.dart';
 import 'package:oncew_dict/pages/work_book_detail/work_book_detail_controller.dart';
 
 import '../../models/word_book.dart';
@@ -98,11 +99,17 @@ class WorkBookDetail extends StatelessWidget {
                     )
                   else
                     ...controller.wordList.map((element) => ListTile(
+                          onTap: () =>
+                              Get.to(() => WordDetailPage(word: element)),
                           title: Text(element.word),
                           trailing: element.captions?.isNotEmpty == true
-                              ? Text((element.captions!.first.st ?? "") +
-                                  " " +
-                                  (element.captions!.first.defCn ?? ""))
+                              ? SizedBox(
+                                  width: 200.w,
+                                  child: Text(
+                                    "${element.captions!.first.stCn ?? ""} ${element.captions!.first.defCn ?? ""}",
+                                    style: const TextStyle(
+                                        overflow: TextOverflow.ellipsis),
+                                  ))
                               : null,
                         )),
                 ],

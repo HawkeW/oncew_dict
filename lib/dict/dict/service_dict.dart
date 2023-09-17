@@ -13,7 +13,7 @@ class ServiceDict extends Dict {
       Word(
           id: 0,
           word: "man",
-          pronounceUk: "[man]",
+          pronounceUk: "[{\"pron\": \"man\"}]",
           captions: jsonEncode([
             {
               "sentences": [
@@ -22,12 +22,12 @@ class ServiceDict extends Dict {
               ]
             },
           ])),
-      Word(id: 1, word: "24-7", pronounceUk: "[woman]"),
-      Word(id: 2, word: "shit", pronounceUk: "[shit]"),
+      Word(id: 1, word: "24-7"),
+      Word(id: 2, word: "shit"),
       Word(
           id: 3,
           word: "noodle",
-          pronounceUk: "[noodle]",
+          pronounceUk: "[{\"pron\": \"noodle\"}]",
           captions: jsonEncode([
             {
               "sentences": [
