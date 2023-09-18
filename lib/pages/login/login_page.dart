@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:oncew_dict/controller/user_controller.dart';
 import 'package:oncew_dict/pages/login/login_controller.dart';
+import 'package:progress_state_button/iconed_button.dart';
+import 'package:progress_state_button/progress_button.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
+
+  final FocusNode passwordFocusNode = FocusNode();
 
   final GlobalKey<FormState> _formKey = GlobalKey();
 
@@ -19,14 +22,9 @@ class LoginPage extends StatelessWidget {
       var user = await loginController.login();
       if (user != null) {
         await userController.setUser(user);
-        EasyLoading.show(
-          status: "登录成功！",
-        );
-      } else {
-        EasyLoading.show(status: "登录失败！");
+        await Future.delayed(Duration(seconds: 2));
+        Get.back();
       }
-      print('phone: ${loginController.phone.value}');
-      print('Password: ${loginController.password.value}');
     }
   }
 
@@ -54,6 +52,10 @@ class LoginPage extends StatelessWidget {
                     }
                     return null;
                   },
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: () {
+                    FocusScope.of(context).requestFocus(passwordFocusNode);
+                  },
                   onSaved: (value) {
                     if (value != null) {
                       loginController.phone.value = value;
@@ -61,23 +63,51 @@ class LoginPage extends StatelessWidget {
                   },
                 ),
                 TextFormField(
+                  focusNode: passwordFocusNode,
                   obscureText: true,
-                  decoration: InputDecoration(labelText: '密码'),
+                  decoration: InputDecoration(
+                    labelText: '密码',
+                  ),
+                  textInputAction: TextInputAction.done,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
                     }
                     return null;
                   },
+                  onEditingComplete: () {
+                    FocusScope.of(context).unfocus();
+                    _submitForm();
+                  },
                   onSaved: (value) {
                     if (value != null) loginController.password.value = value;
                   },
                 ),
                 SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: _submitForm,
-                  child: Text('登录'),
-                ),
+                Obx(() => ProgressButton.icon(
+                        state: loginController.state.value,
+                        onPressed: () => _submitForm(),
+                        iconedButtons: {
+                          ButtonState.idle: IconedButton(
+                              text: "登录",
+                              icon: const Icon(Icons.login_sharp,
+                                  color: Colors.white),
+                              color: Colors.blueAccent.shade400),
+                          ButtonState.loading: IconedButton(
+                              text: "正在登录", color: Colors.blueAccent.shade700),
+                          ButtonState.fail: IconedButton(
+                              text: "登录失败",
+                              icon:
+                                  const Icon(Icons.cancel, color: Colors.white),
+                              color: Colors.red.shade300),
+                          ButtonState.success: IconedButton(
+                              text: "登录成功",
+                              icon: const Icon(
+                                Icons.check_circle,
+                                color: Colors.white,
+                              ),
+                              color: Colors.green.shade400)
+                        }))
               ],
             ),
           ),

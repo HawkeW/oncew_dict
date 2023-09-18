@@ -26,4 +26,13 @@ class UserController extends GetxController {
     await LocalData.setStringData<User>(LocalData.userDataKey, user);
     this.user.value = user;
   }
+
+  logOut() {
+    setUser(User(
+        id: -99,
+        nickName: '',
+        phone: '',
+        password: '',
+        createdAt: DateTime.now()));
+  }
 }

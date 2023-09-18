@@ -32,58 +32,71 @@ class HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        child: ListView(
-      children: [
-        DrawerHeader(
-          decoration: BoxDecoration(
-            color: Colors.blue,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (!userController.isLogin)
-                Center(
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 40.sp,
+        child: Obx(() => ListView(
+              children: [
+                DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
                   ),
-                )
-              else
-                Center(
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: 40.sp,
-                      ),
-                      Text(userController.user.value.nickName),
-                      Text(userController.user.value.phone),
+                      if (!userController.isLogin)
+                        Center(
+                          child: Icon(
+                            Icons.person,
+                            color: Colors.white,
+                            size: 40.sp,
+                          ),
+                        )
+                      else
+                        Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Icon(
+                                Icons.person,
+                                color: Colors.white,
+                                size: 40.sp,
+                              ),
+                              Text(userController.user.value.nickName),
+                              Text(userController.user.value.phone),
+                            ],
+                          ),
+                        )
                     ],
                   ),
-                )
-            ],
-          ),
-        ),
-        if (!userController.isLogin)
-          ElevatedButton(
-              onPressed: () => Get.to(() => LoginPage()), child: Text("登录"))
-        else ...[
-          buildDrawerItem(
-            "我的词书",
-            Icons.book,
-            () => Get.to(() => WordBookPage()),
-          ),
-          buildDrawerItem(
-            "搜索单词",
-            Icons.search,
-            () => Get.to(() => SearchWordPage()),
-          ),
-        ]
-      ],
-    ));
+                ),
+                if (!userController.isLogin)
+                  ElevatedButton(
+                      onPressed: () => Get.to(() => LoginPage()),
+                      child: Text("登录"))
+                else
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            buildDrawerItem(
+                              "我的词书",
+                              Icons.book,
+                              () => Get.to(() => WordBookPage()),
+                            ),
+                            buildDrawerItem(
+                              "搜索单词",
+                              Icons.search,
+                              () => Get.to(() => SearchWordPage()),
+                            ),
+                            buildDrawerItem("退出登录", Icons.logout,
+                                () => userController.logOut()),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+              ],
+            )));
   }
 }
