@@ -2,19 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:oncew_dict/controller/user_controller.dart';
-import 'package:oncew_dict/pages/word_book/word_book_controller.dart';
-
-import '../../models/word_book.dart';
+import 'package:oncew_dict/pages/word_book/word_book_list_controller.dart';
 import '../create_word_book/create_word_book.dart';
-import '../work_book_detail/work_book_detail.dart';
-import '../work_book_detail/work_book_detail_controller.dart';
+import '../word_book_detail/word_book_detail.dart';
 
-class WordBookPage extends StatelessWidget {
-  WordBookPage({super.key});
+class WordBookListPage extends StatelessWidget {
+  WordBookListPage({super.key});
 
   final userController = Get.find<UserController>();
 
-  Widget getWordBookItem(WordBookController controller, int index) {
+  Widget getWordBookItem(WordBookListController controller, int index) {
     var item = controller.workBookList[index];
     return InkWell(
       onTap: () {
@@ -22,7 +19,7 @@ class WordBookPage extends StatelessWidget {
           controller.multiSelectChoice[index] =
               !controller.multiSelectChoice[index];
         } else {
-          Get.to(() => WorkBookDetail(
+          Get.to(() => WordBookDetail(
                 wordBook: item,
                 userId: userController.user.value.id,
               ));
@@ -52,7 +49,8 @@ class WordBookPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(WordBookController(userController.user.value));
+    final controller =
+        Get.put(WordBookListController(userController.user.value));
     return Obx(() => Scaffold(
           appBar: AppBar(
             title: const Text("我的词书"),
@@ -85,7 +83,7 @@ class WordBookPage extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-          body: GetX<WordBookController>(builder: (controller) {
+          body: GetX<WordBookListController>(builder: (controller) {
             if (controller.loading.value) {
               return const Center(
                 child: Text("加载中..."),

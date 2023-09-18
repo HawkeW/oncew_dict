@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:oncew_dict/models/word_book.dart';
-import 'package:oncew_dict/pages/word_book/word_book_controller.dart';
+import 'package:oncew_dict/pages/word_book/word_book_list_controller.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 
@@ -18,13 +18,13 @@ class CreateWordBookPage extends StatelessWidget {
   TextEditingController description = TextEditingController();
 
   final userController = Get.find<UserController>();
-  final wordBookController = Get.find<WordBookController>();
+  final wordBookController = Get.find<WordBookListController>();
 
   _submitForm(CreateWordBookController controller) async {
     if ((_formKey.currentState as FormState).validate()) {
       var wordBook = await controller.createBook(WordBook(
           id: -1,
-          useId: userController.user.value.id,
+          userId: userController.user.value.id,
           name: name.text,
           description: description.text,
           createdAt: DateTime.now().toString(),

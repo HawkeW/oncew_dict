@@ -9,6 +9,8 @@ abstract class MappableData {
 class LocalData {
   static const userDataKey = "user_data_key";
 
+  static const strategyKey = "strategy_data_key";
+
   static final Future<SharedPreferences> _prefs =
       SharedPreferences.getInstance();
 
@@ -19,7 +21,8 @@ class LocalData {
     return jsonDecode(mappedStringData);
   }
 
-  static setStringData<T extends MappableData>(String key, T value) async {
+  static Future setStringData<T extends MappableData>(
+      String key, T value) async {
     var sp = await _prefs;
     var strData = jsonEncode(value.toMap());
     sp.setString(key, strData);

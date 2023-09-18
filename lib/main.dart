@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:oncew_dict/controller/word_book_controller.dart';
 import 'package:oncew_dict/pages/home/home.dart';
 
-void main() {
+void main() async {
   runApp(GetMaterialApp(home: MyApp()));
 }
 

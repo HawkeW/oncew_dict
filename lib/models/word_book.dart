@@ -1,6 +1,6 @@
 class WordBook {
   int id;
-  int useId;
+  int userId;
   int type;
   String name;
   String description;
@@ -8,7 +8,7 @@ class WordBook {
 
   WordBook({
     required this.id,
-    required this.useId,
+    required this.userId,
     required this.type,
     required this.name,
     required this.description,
@@ -18,7 +18,7 @@ class WordBook {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'user_id': useId,
+      'user_id': userId,
       'type': type,
       'name': name,
       'description': description,
@@ -29,7 +29,7 @@ class WordBook {
   factory WordBook.fromMap(Map<String, dynamic> map) {
     return WordBook(
       id: map['id'] as int,
-      useId: map['user_id'] as int,
+      userId: map['user_id'] as int,
       type: map['type'] as int,
       name: map['name'] as String,
       description: map['description'] as String,

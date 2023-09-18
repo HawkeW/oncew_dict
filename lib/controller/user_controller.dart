@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:oncew_dict/common/local.dart';
+import 'package:oncew_dict/controller/word_book_controller.dart';
 import 'package:oncew_dict/models/user.dart';
 
 class UserController extends GetxController {
@@ -19,6 +20,7 @@ class UserController extends GetxController {
     var mapData = await LocalData.getMapData(LocalData.userDataKey);
     if (mapData != null) {
       user.value = User.fromMap(mapData);
+      StrategyController.getInstance().init(user.value.id);
     }
   }
 
@@ -34,5 +36,6 @@ class UserController extends GetxController {
         phone: '',
         password: '',
         createdAt: DateTime.now()));
+    StrategyController.getInstance().init(-99);
   }
 }

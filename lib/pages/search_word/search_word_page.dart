@@ -10,7 +10,7 @@ import 'package:oncew_dict/pages/word_detail/word_detail.dart';
 
 import '../../dict/models/word.dart';
 import '../../models/word_book.dart';
-import '../work_book_detail/work_book_detail_controller.dart';
+import '../word_book_detail/word_book_detail_controller.dart';
 
 class SearchWordPage extends StatelessWidget {
   WordBook? wordBook;
@@ -37,7 +37,7 @@ class SearchWordPage extends StatelessWidget {
 
   addWordToCurrentWordBook(Word word) async {
     if (wordBook != null) {
-      final wordBookController = Get.find<WorkBookDetailController>();
+      final wordBookController = Get.find<WordBookDetailController>();
       await controller.addWordToBook(
           userController.user.value.id, wordBookController.wordBook, word);
       wordBookController.getWordList();

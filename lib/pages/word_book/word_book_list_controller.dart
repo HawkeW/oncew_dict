@@ -4,7 +4,7 @@ import 'package:oncew_dict/models/user.dart';
 import '../../models/word_book.dart';
 import '../../service/api/word.dart';
 
-class WordBookController extends GetxController {
+class WordBookListController extends GetxController {
   RxList<WordBook> workBookList = (<WordBook>[]).obs;
 
   RxBool isMultiSelect = false.obs;
@@ -20,7 +20,10 @@ class WordBookController extends GetxController {
 
   removeSelected() async {
     List<int> selectedBookIds = [];
-    multiSelectChoice.asMap().keys.forEach((index) {
+    multiSelectChoice
+        .asMap()
+        .keys
+        .forEach((index) {
       print(multiSelectChoice[index]);
 
       if (multiSelectChoice[index]) {
@@ -42,7 +45,7 @@ class WordBookController extends GetxController {
 
   User user;
 
-  WordBookController(User this.user);
+  WordBookListController(User this.user);
 
   @override
   void onInit() async {

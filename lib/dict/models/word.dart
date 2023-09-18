@@ -37,9 +37,9 @@ class Word {
     return {
       'id': id,
       'word': word,
-      'pronounceUk': pronounceUk,
-      'pronounceUs': pronounceUs,
-      'captions': captions,
+      'pron_uk': jsonEncode(pronounceUk.map((e) => e.toMap()).toList()),
+      'pron_us': jsonEncode(pronounceUs.map((e) => e.toMap()).toList()),
+      'captions': jsonEncode(captions?.map((e) => e.toMap()).toList() ?? []),
     };
   }
 

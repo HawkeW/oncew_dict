@@ -4,11 +4,11 @@ import 'package:oncew_dict/service/api/word.dart';
 import '../../dict/models/word.dart';
 import '../../models/word_book.dart';
 
-class WorkBookDetailController extends GetxController {
+class WordBookDetailController extends GetxController {
   WordBook wordBook;
   int userId;
 
-  WorkBookDetailController(this.wordBook, this.userId);
+  WordBookDetailController(this.wordBook, this.userId);
 
   @override
   onInit() {

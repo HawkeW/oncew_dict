@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:oncew_dict/controller/user_controller.dart';
-import 'package:oncew_dict/pages/word_book/word_book.dart';
+import 'package:oncew_dict/pages/word_book/word_book_list.dart';
 
 import '../pages/login/login_page.dart';
 import '../pages/search_word/search_word_page.dart';
+import '../pages/strategy/strategy.dart';
 
 class HomeDrawer extends StatelessWidget {
   HomeDrawer({super.key});
 
-  final userController = Get.put(UserController());
+  final userController = Get.find<UserController>();
 
   buildDrawerItem(String title, IconData icon, [Function()? onTap]) {
     return Container(
@@ -80,9 +81,14 @@ class HomeDrawer extends StatelessWidget {
                         Column(
                           children: [
                             buildDrawerItem(
-                              "我的词书",
+                              "策略配置",
+                              Icons.sticky_note_2,
+                              () => Get.to(() => StrategyPage()),
+                            ),
+                            buildDrawerItem(
+                              "所有词书",
                               Icons.book,
-                              () => Get.to(() => WordBookPage()),
+                              () => Get.to(() => WordBookListPage()),
                             ),
                             buildDrawerItem(
                               "搜索单词",

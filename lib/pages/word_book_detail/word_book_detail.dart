@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:oncew_dict/pages/search_word/search_word_page.dart';
-import 'package:oncew_dict/pages/word_book/word_book_controller.dart';
+import 'package:oncew_dict/pages/word_book_detail/word_book_detail_controller.dart';
 import 'package:oncew_dict/pages/word_detail/word_detail.dart';
-import 'package:oncew_dict/pages/work_book_detail/work_book_detail_controller.dart';
-
 import '../../models/word_book.dart';
 
-class WorkBookDetail extends StatelessWidget {
+class WordBookDetail extends StatelessWidget {
   WordBook wordBook;
   int userId;
 
-  WorkBookDetail({super.key, required this.wordBook, required this.userId});
+  WordBookDetail({super.key, required this.wordBook, required this.userId});
 
   importWithAi() {}
 
@@ -24,7 +22,7 @@ class WorkBookDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(WorkBookDetailController(wordBook, userId));
+    final controller = Get.put(WordBookDetailController(wordBook, userId));
 
     return Obx(() => Scaffold(
           appBar: AppBar(
