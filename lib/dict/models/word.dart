@@ -75,13 +75,13 @@ class WordCaption {
       "stCn": stCn,
       "defCn": defCn,
       "defEn": defEn,
-      'sentence': sentences,
+      'sentences': sentences?.map((e) => e.toMap()).toList(),
     };
   }
 
   factory WordCaption.fromMap(Map<String, dynamic> map) {
     return WordCaption(
-      sentences: (map['sentence'] as List<Map<String, dynamic>>?)
+      sentences: (map['sentences'] as List<dynamic>?)
           ?.map((e) => SentenceWithTranslate.fromMap(e))
           .toList(),
       st: map['st'] as String?,
